@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Override global base tailwind style */
+@layer base {
+  body{
+    /* Inform JIT to apply different bg color */
+    @apply bg-[#06202A] text-gray-300;
+  }
+}
