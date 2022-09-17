@@ -1,10 +1,13 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import requests from '../api/requests';
 import Header from '../components/Header';
 import Nav from '../components/Nav';
 import tmdb from '../public/tmdb.svg';
 
-export default function Home() {
+export default function Home({ results }) {
+  console.log(results);
+
   return (
     <div>
       <Head>
@@ -25,4 +28,21 @@ export default function Home() {
       </div>
     </div>
   )
+}
+
+// Server-side render - executed before the page is loaded
+export async function getServerSideProps(context) {
+  // The context is a rich object containing details about the current request, url etc.
+  const genre = context.query.genre;
+  const request = await fetch(
+    `https://api.themoviedb.org/3${
+      requests[genre]?.url || requests.fetchTrending.url
+    }`
+  ).then((res) => res.json());
+
+  return {
+    props: {
+      results: request.results,
+    },
+  };
 }
