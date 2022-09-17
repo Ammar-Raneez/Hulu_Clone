@@ -3,11 +3,10 @@ import Image from 'next/image';
 import requests from '../api/requests';
 import Header from '../components/Header';
 import Nav from '../components/Nav';
+import Results from '../components/Results';
 import tmdb from '../public/tmdb.svg';
 
 export default function Home({ results }) {
-  console.log(results);
-
   return (
     <div>
       <Head>
@@ -17,6 +16,7 @@ export default function Home({ results }) {
       </Head>
       <Header />
       <Nav />
+      <Results results={results} />
       <div className="flex justify-center">
         <Image
           className="object-contain"
